@@ -104,13 +104,10 @@ int PET(int nPhiBins = 1,
   can_FFT_proj -> Divide(2, 2);
 
 
-
   // the original slice:
   can -> cd(1);
   slice1 -> Draw(option2D.c_str());
-  gPad -> Print(Form("can_%s.eps", slice1 -> GetName()));
-  gPad -> Print(Form("can_%s.gif", slice1 -> GetName()));
-
+  gPad -> Print(Form("can_%s.png", slice1 -> GetName()));
 
   // make the sinogram
   TSinogram *Sino = new TSinogram(nbinsx, x1, x2, nbinsy, y1, y2, slice1);
@@ -139,8 +136,7 @@ int PET(int nPhiBins = 1,
     can -> cd(2);
     sinogram -> SetStats(0);
     sinogram -> Draw(option2D.c_str());
-    gPad -> Print(Form("can_%s_%iphi.eps", sinogram -> GetName(), PhiBins[iphi]));
-    gPad -> Print(Form("can_%s_%iphi.gif", sinogram -> GetName(), PhiBins[iphi]));
+    gPad -> Print(Form("can_%s_%iphi.png", sinogram -> GetName(), PhiBins[iphi]));
 
     // make the siple backprojection  
     Sino -> MakeTheBackProjection(Sino -> GetSinogram());
@@ -148,8 +144,7 @@ int PET(int nPhiBins = 1,
     can -> cd(3);
     backprojection -> SetStats(0);
     backprojection -> DrawCopy(option2D.c_str());
-    gPad -> Print(Form("can_%s_%iphi.eps", backprojection -> GetName(), PhiBins[iphi]));
-    gPad -> Print(Form("can_%s_%iphi.gif", backprojection -> GetName(), PhiBins[iphi]));
+    gPad -> Print(Form("can_%s_%iphi.png", backprojection -> GetName(), PhiBins[iphi]));
 
 
     TH2D *sinogram_FFT1D_re;
@@ -170,19 +165,15 @@ int PET(int nPhiBins = 1,
       can_FFT -> cd(1);
       sinogram_FFT1D_re -> SetStats(0);
       sinogram_FFT1D_re -> Draw(option2D.c_str());
-      gPad -> Print(Form("can_%s_%iphi.eps", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
-      gPad -> Print(Form("can_%s_%iphi.gif", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
+      gPad -> Print(Form("can_%s_%iphi.png", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
 
       int N = sinogram_FFT1D_re -> GetNbinsX();
       sinogram_FFT1D_re -> GetXaxis() -> SetRange(0, N/8);
-      gPad -> Print(Form("can_%s_%iphi_low.eps", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
-      gPad -> Print(Form("can_%s_%iphi_low.gif", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
+      gPad -> Print(Form("can_%s_%iphi_low.png", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
       sinogram_FFT1D_re -> GetXaxis() -> SetRange(7*N/8, N);
-      gPad -> Print(Form("can_%s_%iphi_high.eps", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
-      gPad -> Print(Form("can_%s_%iphi_high.gif", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
+      gPad -> Print(Form("can_%s_%iphi_high.png", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
       sinogram_FFT1D_re -> GetXaxis() -> SetRange(3*N/8, 5*N/8);
-      gPad -> Print(Form("can_%s_%iphi_middle.eps", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
-      gPad -> Print(Form("can_%s_%iphi_middle.gif", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
+      gPad -> Print(Form("can_%s_%iphi_middle.png", sinogram_FFT1D_re -> GetName(), PhiBins[iphi]));
 
       can_FFT_proj -> cd(1);
       sinogram_FFT1D_re_proj =  (TH1D*) sinogram_FFT1D_re -> ProjectionX("proj_re");
@@ -197,19 +188,15 @@ int PET(int nPhiBins = 1,
       can_FFT -> cd(2);
       sinogram_FFT1D_im -> SetStats(0);
       sinogram_FFT1D_im -> Draw(option2D.c_str());
-      gPad -> Print(Form("can_%s_%iphi.eps", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
-      gPad -> Print(Form("can_%s_%iphi.gif", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
+      gPad -> Print(Form("can_%s_%iphi.png", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
 
       int N = sinogram_FFT1D_im -> GetNbinsX();
       sinogram_FFT1D_im -> GetXaxis() -> SetRange(0, N/8);
-      gPad -> Print(Form("can_%s_%iphi_low.eps", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
-      gPad -> Print(Form("can_%s_%iphi_low.gif", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
+      gPad -> Print(Form("can_%s_%iphi_low.png", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
       sinogram_FFT1D_im -> GetXaxis() -> SetRange(7*N/8, N);
-      gPad -> Print(Form("can_%s_%iphi_high.eps", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
-      gPad -> Print(Form("can_%s_%iphi_high.gif", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
+      gPad -> Print(Form("can_%s_%iphi_high.png", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
       sinogram_FFT1D_im -> GetXaxis() -> SetRange(3*N/8, 5*N/8);
-      gPad -> Print(Form("can_%s_%iphi_middle.eps", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
-      gPad -> Print(Form("can_%s_%iphi_middle.gif", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
+      gPad -> Print(Form("can_%s_%iphi_middle.png", sinogram_FFT1D_im -> GetName(), PhiBins[iphi]));
 
       can_FFT_proj -> cd(2);
       sinogram_FFT1D_im_proj =  (TH1D*) sinogram_FFT1D_im -> ProjectionX("proj_im");
@@ -231,8 +218,7 @@ int PET(int nPhiBins = 1,
     if (sinogram_InvFFT1D_re) {
       sinogram_InvFFT1D_re -> SetStats(0);
       sinogram_InvFFT1D_re -> Draw(option2D.c_str());
-      gPad -> Print(Form("can_%s_%iphi.eps", sinogram_InvFFT1D_re -> GetName(), PhiBins[iphi]));
-      gPad -> Print(Form("can_%s_%iphi.gif", sinogram_InvFFT1D_re -> GetName(), PhiBins[iphi]));
+      gPad -> Print(Form("can_%s_%iphi.png", sinogram_InvFFT1D_re -> GetName(), PhiBins[iphi]));
     } else
       cerr << "ERROR getting sinogram_InvFFT1D_re!" << endl;
     
@@ -241,8 +227,7 @@ int PET(int nPhiBins = 1,
     if (sinogram_InvFFT1D_im) {
       sinogram_InvFFT1D_im -> SetStats(0);
       sinogram_InvFFT1D_im -> Draw(option2D.c_str());
-      gPad -> Print(Form("can_%s_%iphi.eps", sinogram_InvFFT1D_im -> GetName(), PhiBins[iphi]));
-      gPad -> Print(Form("can_%s_%iphi.gif", sinogram_InvFFT1D_im -> GetName(), PhiBins[iphi]));
+      gPad -> Print(Form("can_%s_%iphi.png", sinogram_InvFFT1D_im -> GetName(), PhiBins[iphi]));
     } else
       cerr << "ERROR getting sinogram_InvFFT1D_im!" << endl;
 
@@ -253,8 +238,7 @@ int PET(int nPhiBins = 1,
     can -> cd(4);
     filtered_backprojection -> SetStats(0);
     filtered_backprojection -> DrawCopy(option2D.c_str());
-    gPad -> Print(Form("can_%s_%iphi.eps", filtered_backprojection -> GetName(), PhiBins[iphi]));
-    gPad -> Print(Form("can_%s_%iphi.gif", filtered_backprojection -> GetName(), PhiBins[iphi]));
+    gPad -> Print(Form("can_%s_%iphi.png", filtered_backprojection -> GetName(), PhiBins[iphi]));
 
 
 
@@ -269,14 +253,11 @@ int PET(int nPhiBins = 1,
     } // iphi == 0
 
 
-    can -> Print(Form("%s_%iiphi.eps", can -> GetName(), PhiBins[iphi]));
-    can -> Print(Form("%s_%iiphi.gif", can -> GetName(), PhiBins[iphi]));
+    can -> Print(Form("%s_%iiphi.png", can -> GetName(), PhiBins[iphi]));
 
-    can_FFT -> Print(Form("%s_%iiphi.eps", can_FFT -> GetName(), PhiBins[iphi]));
-    can_FFT -> Print(Form("%s_%iiphi.gif", can_FFT -> GetName(), PhiBins[iphi]));
+    can_FFT -> Print(Form("%s_%iiphi.png", can_FFT -> GetName(), PhiBins[iphi]));
 
-    can_FFT_proj -> Print(Form("%s_%iiphi.eps", can_FFT_proj -> GetName(), PhiBins[iphi]));
-    can_FFT_proj -> Print(Form("%s_%iiphi.gif", can_FFT_proj -> GetName(), PhiBins[iphi]));
+    can_FFT_proj -> Print(Form("%s_%iiphi.png", can_FFT_proj -> GetName(), PhiBins[iphi]));
 
   } // phi bins
   int MaxN =  Sino -> GetSinogram() -> GetNbinsX();
@@ -284,8 +265,7 @@ int PET(int nPhiBins = 1,
   can_FFT_proj -> cd(3);
   filter_h -> SetStats(0);
   filter_h -> Draw("hist");
-  gPad -> Print(Form("filter_%s.eps", filter_h -> GetName()));
-  gPad -> Print(Form("filter_%s.gif", filter_h -> GetName()));
+  gPad -> Print(Form("filter_%s.png", filter_h -> GetName()));
 
 
   return 0;
