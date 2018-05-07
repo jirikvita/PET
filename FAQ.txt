@@ -1,0 +1,4 @@
+http://www.dspguru.com/info/faqs/fftfaq.htm
+http://en.wikipedia.org/wiki/Cooley-Tukey_FFT_algorithm
+http://www.sjbaker.org/steve/software/cute_code.html
+
