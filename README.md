@@ -14,6 +14,21 @@ The `PET()` macro builds a synthetic 2D activity profile from simple shapes (cir
 
 The macro can optionally replace one sinogram channel with a chosen value or add non-negative Gaussian noise to every sinogram bin. Its filters are custom frequency weights implemented in `TSinogram.cpp`; filter 4, the default, is a triangular weight over the frequency-bin index.
 
+## Projection and backprojection
+
+For each angle `φ = iπ/Nφ`, the forward projector samples parallel lines at detector offsets `s`. It parameterizes each line with a coordinate `z` along the line:
+
+```text
+x = s cos(φ) - z sin(φ)
+y = s sin(φ) + z cos(φ)
+```
+
+The sinogram value at `(s, φ)` is a numerical line integral: the code samples the source profile along `z` and accumulates `profile(x, y) × Δs × Δz`. The histogram's first axis is intended to represent detector offset and its second axis represents angle `φ`; the angles are sampled from 0 up to, but not including, π.
+
+The backprojector then visits each output image-grid point `(x, y)`, looks up a sinogram value for each sampled angle, and sums those values. It uses the histogram bin containing the lookup coordinate (no interpolation) and divides the sum by the number of detector-position bins.
+
+**Implementation caveat:** the forward-projection loop fills successive detector bins while its computed offset `s` decreases from positive to negative, opposite the histogram's increasing first-axis labels. Also, the backprojector looks up `z = -x sin(φ) + y cos(φ)` as the detector offset, whereas the forward projector computes the perpendicular offset as `s = x cos(φ) + y sin(φ)`. Since `z` is along the projection line, not perpendicular to it, the backprojector does not select the forward projector's matching line coordinate. This describes the current implementation.
+
 ## Requirements and running
 
 Run from the repository directory with [ROOT](https://root.cern/) installed. ROOT's ACLiC compiles the macro and its included source files:
